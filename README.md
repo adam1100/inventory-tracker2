@@ -1,3 +1,21 @@
+Adam - run with npm start 
+Might have to download react mdl: npm install --save react-mdl
+and react router: npm install --save react-router
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

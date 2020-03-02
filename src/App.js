@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 
-function App() {
+//components
+import Header from './components/headerComponent/header';
+import Footer from './components/footerComponent/footer';
+import Homepage from './components/pages/homePage';
+import LoginPage from './components/pages/loginPage';
+import RegisterPage from './components/pages/registerPage';
+import InventorySearch from './components/pages/inventorySearch';
+
+class App extends Component {
+  render(){
   return (
+    <Router>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <Header />
+
+      <Route exact path='/' component={Homepage} />
+      <Route exact path='/loginPage' component={LoginPage} />
+      <Route exact path='/registerPage' component={RegisterPage} />
+      <Route exact path='/InventorySearch'component={InventorySearch} />
+
+      <Footer />
+
     </div>
+    </Router>
   );
 }
-
+}
 export default App;

@@ -20,6 +20,7 @@ class RegisterPage extends Component {
 
   handleSubmit = () => {
     console.log(this.state)
+    
   }
 
 

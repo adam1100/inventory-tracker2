@@ -5,7 +5,7 @@ class UserPage extends Component {
   render(){
   return (
     <div className="wrap">
-        User page
+        User page.
     </div>
 
   );

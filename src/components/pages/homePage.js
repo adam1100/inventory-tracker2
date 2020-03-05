@@ -3,6 +3,7 @@ import { Button } from 'react-mdl';
 import {
     Link
   } from 'react-router-dom';
+import { Form } from 'semantic-ui-react'
 
 class Homepage extends Component {
   render(){
@@ -23,6 +24,17 @@ class Homepage extends Component {
         <Link to="/inventorySearch">
             <Button raised>Inventory Search</Button>
         </Link>
+
+      <Form>
+        <Form.Field>
+          <label>Username</label>
+          <Form.Input/>
+        </Form.Field>
+        <Form.Field>
+          <label>Password</label>
+          <Form.Input type='password'/>
+        </Form.Field>
+      </Form>
         
     </div>
 

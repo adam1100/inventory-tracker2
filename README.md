@@ -3,7 +3,8 @@ Might have to download react mdl: npm install --save react-mdl
 and react router: npm install --save react-router
 
 
-
+Abhay - Had a look at ways to create login and register pages with react, couldnt understand it fully
+Here's the link : https://medium.com/technoetics/create-basic-login-forms-using-create-react-app-module-in-reactjs-511b9790dede
 
 
 

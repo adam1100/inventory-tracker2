@@ -1,0 +1,21 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+/* every element on the page will have box-sizing: inherit 
+    which means box-sizing will be inherited from the body
+    as that is the parent element of each child element of 
+    body*/
+html {
+  font-size: 62.5%; }
+
+/* font size will be 16px at 100% if the user doesnt change anything */
+/* we want it to be 10px so we use 65.5% */
+body {
+  padding: 3rem;
+  box-sizing: border-box; }
+
+/* padding doesnt get inherited, just a padding around the body */

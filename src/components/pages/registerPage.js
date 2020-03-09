@@ -9,8 +9,10 @@ class RegisterPage extends Component {
     super()
     this.handleChange = this.handleChange.bind(this)
     this.state = {
-      name: "",
-      email: ""
+      firstName: "",
+      lastName:"",
+      email: "",
+      password: ""
     }
   }
    handleChange = (e, {name, value}) => {
@@ -28,28 +30,29 @@ class RegisterPage extends Component {
   return (
     <div>
       <Form onSubmit={this.handleSubmit}>
-        <Form.Field><label>Name</label>
-          <Form.Input name="name" value={this.state.name} onChange={this.handleChange}/>
+        <Form.Field><label>First Name</label>
+          <Form.Input name="firstName" value={this.state.firstName} onChange={this.handleChange}/>
+        </Form.Field>
+        <Form.Field><label>Last Name</label>
+          <Form.Input name="lastName" value={this.state.lastName} onChange={this.handleChange}/>
         </Form.Field>
         <Form.Field><label>Email</label>
           <Form.Input name="email" value={this.state.email} onChange={this.handleChange}/>
         </Form.Field>
-        <Button type="submit">Submit</Button>
+        <Form.Field><label>Password</label>
+          <Form.Input name="password" type="password" value={this.state.password} onChange={this.handleChange}/>
+        </Form.Field>
+     
+        <Button type="submit">Register</Button>
+     
+        
 
        
       <br />
       <br />
       <br />
       <br />
-             <label>
-                Your password
-            </label>
-            <input type="password" id="password"/>
-            <div className="text-center mt-4">
-            <Link to="/userPage">
-            <Button raised>Register</Button>
-            </Link>
-            </div>
+
       </Form>
       </div>
 

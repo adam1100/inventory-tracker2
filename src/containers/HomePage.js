@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import InventorySearch from '../components/InventorySearch/InventorySearch';
 import UserHandler from '../components/UserHandler/UserHandler';
+import InventoryTable from '../components/UserInventory/InventoryTable';
 
 import classes from '../style.css'
 
@@ -13,6 +14,7 @@ class Homepage extends Component {
         <InventorySearch /> 
         <hr/>
         <UserHandler />
+        <InventoryTable />
       </div>
     );
   }

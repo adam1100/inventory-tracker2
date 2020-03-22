@@ -9,6 +9,7 @@ class Homepage extends Component {
     userSearch: false,
     searchInput: "",
     searchResult: undefined,
+    selectedTableData: {id: ""},
     inventoryDb: [
       {id: "myinventory",
        description: "things i own",
@@ -22,11 +23,38 @@ class Homepage extends Component {
     ],
     inventoryTableDb: [
       {id: "myinventory",
-       items: [{
-         
-       }]
-
-      }
+       contents: [
+         {id: 1,
+          description: "maths book" },
+         {id: 2,
+          description: "screwdriver" },
+         {id: 3,
+          description: "chair" },
+         {id: 4,
+          description: "table" }
+       ]},
+      {id: "tcdscss",
+       contents: [
+         {id: 1,
+          description: "robot kit" },
+         {id: 2,
+          description: "mouse" },
+         {id: 3,
+          description: "laptop" },
+         {id: 4,
+          description: "phone" }
+       ]},
+      {id: "photography-gear",
+       contents: [
+         {id: 1,
+          description: "canon" },
+         {id: 2,
+          description: "50mm lens" },
+         {id: 3,
+          description: "tripod" },
+         {id: 4,
+          description: "flash" }
+       ]}
     ]
   };
 
@@ -42,6 +70,16 @@ class Homepage extends Component {
     this.setState({searchInput: event.target.value})
   }
 
+  clickInventoryHandler = inventoryId => {
+    let tableData = {id: ""};
+    // dont show any table
+
+    if(inventoryId != this.state.selectedTableData.id)
+      tableData = this.state.inventoryTableDb.find(inv => inv.id == inventoryId)
+
+    this.setState({selectedTableData: tableData});
+  }
+
   render(){
     return (
       <div>
@@ -53,7 +91,9 @@ class Homepage extends Component {
           clicked = { this.searchButtonHandler }
           inputChange = { this.searchInputChangeHandler }
           searchResult = { this.state.searchResult }
-          showResult = { this.state.userSearch }/> 
+          showResult = { this.state.userSearch }
+          clickedInventory = { this.clickInventoryHandler }
+          tableData = { this.state.selectedTableData }/> 
           {/* <hr/>
           <UserHandler /> */}
         </div>

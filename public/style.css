@@ -31,6 +31,9 @@ body {
   font-size: 5rem;
   text-decoration: underline; }
 
+.border {
+  border: 1px solid black; }
+
 .row {
   max-width: 114rem;
   margin: 0 auto; }

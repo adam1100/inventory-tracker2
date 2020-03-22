@@ -12,7 +12,11 @@ const inventorySearch = (props) => {
             <input type="text" onChange = { props.inputChange } />
             <button className="btn" onClick = { props.clicked }> Search </button>
 
-            {props.showResult ? <SearchResults results = { props.searchResult } /> : <p></p> }
+            {props.showResult ? <SearchResults 
+                                results = { props.searchResult } 
+                                clicked = { props.clickedInventory }
+                                tableData = { props.tableData }/> 
+                                : <p></p> }
             {/* Show results when user searched */}
         </div>
     );

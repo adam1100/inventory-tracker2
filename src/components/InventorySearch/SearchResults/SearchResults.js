@@ -7,7 +7,9 @@ const SearchResults = (props) => {
     const inventoryResultList = props.results.map( result => {
         return <InventoryResult
                 inventoryDetails = { result }
-                key = { result.id }/>
+                key = { result.id }
+                clicked = { () => props.clicked(result.id) }
+                tableData = { props.tableData }/>
         });
 
     return(

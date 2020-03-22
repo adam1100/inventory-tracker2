@@ -9,7 +9,10 @@ const SearchResults = (props) => {
                 inventoryDetails = { result }
                 key = { result.id }
                 clicked = { () => props.clicked(result.id) }
-                tableData = { props.tableData }/>
+                tableData = { props.tableData }
+                formHandler = {(itemId) => props.formHandler(result.id, itemId)}
+                formChanged = {props.formChanged}
+                formInput = {props.formInput}/>
         });
 
     return(

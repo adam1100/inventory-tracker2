@@ -15,7 +15,10 @@ const inventorySearch = (props) => {
             {props.showResult ? <SearchResults 
                                 results = { props.searchResult } 
                                 clicked = { props.clickedInventory }
-                                tableData = { props.tableData }/> 
+                                tableData = { props.tableData }
+                                formHandler = {props.formHandler} 
+                                formChanged = {props.formChanged}
+                                formInput = {props.formInput}/>
                                 : <p></p> }
             {/* Show results when user searched */}
         </div>

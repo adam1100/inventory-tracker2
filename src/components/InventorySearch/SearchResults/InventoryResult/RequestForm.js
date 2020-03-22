@@ -3,9 +3,9 @@ import React from 'react';
 const requestForm = (props) => {
     
     return(
-    <div >
-        <input type="text"/>
-        <button>Request</button>
+    <div>
+        <input onChange={props.formChanged} value={props.formInput} type="text"/>
+        <button onClick={props.formHandler}>Request</button>
     </div>
     );
 }

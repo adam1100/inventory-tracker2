@@ -5,7 +5,12 @@ const inventoryResult = (props) => {
     let table = undefined;
     let showTable = false;
     if (props.tableData.id == props.inventoryDetails.id){
-        table = <InventoryTable tableData = {props.tableData}/>
+        table = 
+        <InventoryTable 
+        tableData = {props.tableData}
+        formHandler = {props.formHandler}
+        formChanged = {props.formChanged}
+        formInput = {props.formInput}/>
         showTable = true;
     }
     

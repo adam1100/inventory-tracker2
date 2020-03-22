@@ -10,6 +10,7 @@ class Homepage extends Component {
     searchInput: "",
     searchResult: undefined,
     selectedTableData: {id: ""},
+    formInput: "",
     inventoryDb: [
       {id: "myinventory",
        description: "things i own",
@@ -66,6 +67,14 @@ class Homepage extends Component {
     this.setState({userSearch: true, searchResult: searchResult});
   }
 
+  formHandler = (invId, itemId) => {
+    console.log(invId + " " + itemId + " " + this.state.formInput)
+  }
+
+  formInputChange = event => {
+    this.setState({formInput: event.target.value})
+  }
+
   searchInputChangeHandler = event => {
     this.setState({searchInput: event.target.value})
   }
@@ -93,7 +102,10 @@ class Homepage extends Component {
           searchResult = { this.state.searchResult }
           showResult = { this.state.userSearch }
           clickedInventory = { this.clickInventoryHandler }
-          tableData = { this.state.selectedTableData }/> 
+          tableData = { this.state.selectedTableData }
+          formHandler = {this.formHandler}
+          formChanged = {this.formInputChange}
+          formInput = {this.state.formInput}/>
           {/* <hr/>
           <UserHandler /> */}
         </div>

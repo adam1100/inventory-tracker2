@@ -13,13 +13,17 @@ const inventoryTable = (props) => {
     });
     
     return(
-    <div>
-        <div className="row">
-            <p className="col-1-of-2">index</p>
-            <p className="col-1-of-2">description</p>
-        </div>
-        {tableContents}
-    </div>
+    <table className="inner-table">
+        <thead>
+        <tr>
+            <th>Item ID</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+            {tableContents}
+        </tbody>
+    </table>
     );
 }
 

@@ -16,14 +16,18 @@ const SearchResults = (props) => {
         });
 
     return(
-    <div>
-        <div className="row">
-            <p className="col-1-of-3">inventory name</p>
-            <p className="col-1-of-3">description</p>
-            <p className="col-1-of-3">owner</p>
-        </div>
+    <table className="outer-table">
+        <thead>
+        <tr>
+            <th>Inventory Name</th>
+            <th>Description</th>
+            <th>Owner</th>
+        </tr>
+        </thead>
+        <tbody>
         {inventoryResultList}
-    </div>
+        </tbody>
+    </table>
     );
 }
 

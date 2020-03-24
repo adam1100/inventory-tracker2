@@ -1,3 +1,93 @@
 .heading-primary{
     margin: -4rem 0rem 0rem -2rem;
 }
+
+.search-section{
+    text-align: center;
+
+
+    &--compact{
+        margin-top: 8%;
+
+    }
+
+    &--expand{
+
+    }
+}
+
+.search-bar{
+    text-align: center;
+    padding: 2rem;
+    display: flex;
+    //flex-flow: row wrap;
+
+    justify-content: center;
+    align-items: center;
+    input{
+        text-align: center;
+        padding: 0rem 8rem; 
+        margin: 0 2rem;
+        font-size: 4rem;
+    }
+    button{
+        margin: 0 2rem;
+        width: 10rem;
+        height: 4rem;
+    }
+}
+
+.user-section{
+    
+}
+
+.login{
+    display: inline-block;
+    text-align: center;
+    width: 50%;
+}
+.vline{
+    display: inline-block;
+    border-left: 3px solid $color-primary-light;
+    height: 10rem;
+}
+
+.hline{
+    border-top: 3px solid $color-primary-light;
+    width: 90%;
+    margin: 5rem auto;
+}
+
+.register{
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    width: 50%;
+}
+
+.usrBtn{
+    width: 7rem;
+    height: 2rem;
+}
+
+.outer-table{
+    width: 100%;
+    font-size: 2rem;
+    border: 1px solid black;
+    th {
+        
+    }
+    td{
+        text-align: center;
+        padding: 2rem;
+    }
+}
+
+.inner-table{
+    width: 100%;
+}
+
+.row-selected{
+    background-color:$color-tertiary-light;
+    color: $color-white;
+}

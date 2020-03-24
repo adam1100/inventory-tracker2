@@ -3,14 +3,23 @@ import React from 'react';
 import SearchResults from './SearchResults/SearchResults'
 
 const inventorySearch = (props) => {
+
+    let searchSectionStyle = "search-section--compact";
+    if (props.showResult)
+        searchSectionStyle = "search-section--expand"
     
     return(
-        <div className="inventory-search">
-            {!props.showResult ? <p>Inventory Search</p> : <p></p> } 
-            {/* Hide paragraph when user searched */}
+        <div>
 
-            <input type="text" onChange = { props.inputChange } />
-            <button className="btn" onClick = { props.clicked }> Search </button>
+            <div className={searchSectionStyle}>
+                {!props.showResult ? <p className="search-section--header">Find an Inventory</p> : [] } 
+                {/* Hide paragraph when user searched */}
+
+                <div className="search-bar">
+                    <input type="text" onChange = { props.inputChange } />
+                    <button onClick = { props.clicked }> Search </button>
+                </div> 
+            </div>
 
             {props.showResult ? <SearchResults 
                                 results = { props.searchResult } 
@@ -19,7 +28,7 @@ const inventorySearch = (props) => {
                                 formHandler = {props.formHandler} 
                                 formChanged = {props.formChanged}
                                 formInput = {props.formInput}/>
-                                : <p></p> }
+                                : [] }
             {/* Show results when user searched */}
         </div>
     );

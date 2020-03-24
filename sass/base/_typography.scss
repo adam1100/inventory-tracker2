@@ -11,3 +11,43 @@ body {
     font-size: 5rem;
     text-decoration: underline;
 }
+
+.search-section{
+    &--header{
+        text-align: center;
+        font-size: 4rem;
+        font-weight: 700;
+        color: $color-primary-dark;
+    }
+
+}
+
+.heading-login{
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 700;
+    color: $color-primary-dark;
+}
+
+.heading-register{
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 700;
+    color: $color-primary-dark;
+}
+
+.menu-btn{
+    font-size: 2rem;
+    &--selected{
+        font-size: 2rem;
+    }
+}
+
+
+
+.menu-heading{
+    color: $color-primary;
+    font-size: 2rem;
+    font-weight: 700;
+    
+}

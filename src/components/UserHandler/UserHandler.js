@@ -5,9 +5,8 @@ import UserRegister from './UserRegister/UserRegister';
 const userHandler = (props) => {
 
     return(
-    <div> 
+    <div className="user-section"> 
         <UserLogin/>
-        <hr/>
         <UserRegister/>
     </div>
     );

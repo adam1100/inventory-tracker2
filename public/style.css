@@ -31,8 +31,52 @@ body {
   font-size: 5rem;
   text-decoration: underline; }
 
+.search-section--header {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #28b485; }
+
+.heading-login {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #28b485; }
+
+.heading-register {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #28b485; }
+
+.menu-btn {
+  font-size: 2rem; }
+  .menu-btn--selected {
+    font-size: 2rem; }
+
+.menu-heading {
+  color: #55c57a;
+  font-size: 2rem;
+  font-weight: 700; }
+
 .border {
   border: 1px solid black; }
+
+.center {
+  text-align: center; }
+
+.pair {
+  font-size: 2rem; }
+  .pair--table {
+    display: inline-block;
+    font-size: 2rem; }
+    .pair--table p {
+      margin: 0;
+      padding: 0; }
+    .pair--table input {
+      font-size: 2rem;
+      margin: 0;
+      padding: 0; }
 
 .row {
   max-width: 114rem;
@@ -62,3 +106,153 @@ body {
 
 .heading-primary {
   margin: -4rem 0rem 0rem -2rem; }
+
+.search-section {
+  text-align: center; }
+  .search-section--compact {
+    margin-top: 8%; }
+
+.search-bar {
+  text-align: center;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .search-bar input {
+    text-align: center;
+    padding: 0rem 8rem;
+    margin: 0 2rem;
+    font-size: 4rem; }
+  .search-bar button {
+    margin: 0 2rem;
+    width: 10rem;
+    height: 4rem; }
+
+.login {
+  display: inline-block;
+  text-align: center;
+  width: 50%; }
+
+.vline {
+  display: inline-block;
+  border-left: 3px solid #7ed56f;
+  height: 10rem; }
+
+.hline {
+  border-top: 3px solid #7ed56f;
+  width: 90%;
+  margin: 5rem auto; }
+
+.register {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  width: 50%; }
+
+.usrBtn {
+  width: 7rem;
+  height: 2rem; }
+
+.outer-table {
+  width: 100%;
+  font-size: 2rem;
+  border: 1px solid black; }
+  .outer-table td {
+    text-align: center;
+    padding: 2rem; }
+
+.inner-table {
+  width: 100%; }
+
+.row-selected {
+  background-color: #2998ff;
+  color: #fff; }
+
+.menu-btn {
+  display: block;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #7ed56f; }
+  .menu-btn--table {
+    margin: 2rem  1rem;
+    padding: 1rem;
+    background-color: #7ed56f;
+    font-size: 2rem; }
+  .menu-btn--selected {
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #2998ff; }
+
+.menu {
+  text-align: center;
+  width: 50%;
+  display: inline-block;
+  vertical-align: top; }
+
+.updates {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center; }
+
+.update-card {
+  background-color: #7ed56f;
+  color: #000;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-size: 1.5rem; }
+  .update-card--req {
+    background-color: orange;
+    color: #000;
+    margin: 2rem auto;
+    padding: 2rem;
+    font-size: 1.5rem; }
+  .update-card--loan {
+    background-color: yellow;
+    color: #000;
+    margin: 2rem auto;
+    padding: 2rem;
+    font-size: 1.5rem; }
+
+.dashboard-top {
+  margin: 4rem; }
+
+.user-table {
+  width: 100%;
+  font-size: 2rem;
+  border: 1px solid black; }
+  .user-table td {
+    text-align: center;
+    padding: 2rem; }
+
+.requested {
+  background-color: orange;
+  color: white; }
+
+.loan {
+  background-color: yellow;
+  color: black; }
+
+.default {
+  color: black; }
+
+.orange-leg {
+  margin-left: 1rem;
+  width: 25px;
+  height: 25px;
+  background-color: orange;
+  display: inline-block; }
+
+.yellow-leg {
+  margin-left: 1rem;
+  width: 25px;
+  height: 25px;
+  background-color: yellow;
+  display: inline-block; }
+
+.leg {
+  margin-left: 0.5rem;
+  display: inline-block;
+  font-size: 1.5rem;
+  vertical-align: top; }

@@ -3,26 +3,35 @@ import InventoryTable from './InventoryTable';
 
 const inventoryResult = (props) => {
     let table = undefined;
-    let showTable = false;
+    let rowStyle = "row-unselected";
     if (props.tableData.id == props.inventoryDetails.id){
+        rowStyle = "row-selected"
+    }
+
+    const inventoryResultRow = [   <tr className={rowStyle} onClick={props.clicked}>
+                                        <td> {props.inventoryDetails.id}</td>
+                                        <td> {props.inventoryDetails.description}</td>
+                                        <td> {props.inventoryDetails.user}</td>
+                                    </tr>]
+
+    if (props.tableData.id == props.inventoryDetails.id){
+
         table = 
+        <tr>
+        <td colspan="100%">
         <InventoryTable 
         tableData = {props.tableData}
         formHandler = {props.formHandler}
         formChanged = {props.formChanged}
         formInput = {props.formInput}/>
-        showTable = true;
+        </td>
+        </tr>
+
+        inventoryResultRow.push(table);
     }
-    
+
     return(
-    <div className="row border">
-        <div onClick={props.clicked}>
-            <p className="col-1-of-3">{props.inventoryDetails.id}</p>
-            <p className="col-1-of-3">{props.inventoryDetails.description}</p>
-            <p className="col-1-of-3">{props.inventoryDetails.user}</p>
-        </div>
-        {showTable ? table : <p></p>}
-    </div>
+        inventoryResultRow
     );
 }
 

@@ -12,9 +12,9 @@ class Homepage extends Component {
     selectedTableData: {id: ""},
     formInput: "",
     inventoryDb: [
-      {id: "myinventory",
-       description: "things i own",
-       user: "casualuser123"},
+      {id: "cs-books",
+       description: "computer science books",
+       user: "ducss"},
       {id: "tcdscss",
        description: "equipment for trinity staff and alumni",
        user: "scss-cathal"},
@@ -23,16 +23,16 @@ class Homepage extends Component {
        user: "dupa"}
     ],
     inventoryTableDb: [
-      {id: "myinventory",
+      {id: "cs-books",
        contents: [
          {id: 1,
-          description: "maths book" },
+          description: "learn prolog now" },
          {id: 2,
-          description: "screwdriver" },
+          description: "GEB" },
          {id: 3,
-          description: "chair" },
+          description: "object oriented programming: java" },
          {id: 4,
-          description: "table" }
+          description: "concurrent systems" }
        ]},
       {id: "tcdscss",
        contents: [
@@ -95,6 +95,8 @@ class Homepage extends Component {
         <h1 className="heading-primary"
           onClick={() => this.setState({userSearch: false})}
         >Inventory Share</h1>
+
+
         <div className="inner">
           <InventorySearch 
           clicked = { this.searchButtonHandler }
@@ -106,8 +108,8 @@ class Homepage extends Component {
           formHandler = {this.formHandler}
           formChanged = {this.formInputChange}
           formInput = {this.state.formInput}/>
-          {/* <hr/>
-          <UserHandler /> */}
+          <div className="hline"/>
+          <UserHandler /> 
         </div>
       </div>
     );

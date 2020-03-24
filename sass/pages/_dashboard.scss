@@ -1,0 +1,114 @@
+.menu-btn{
+    display: block;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: $color-primary-light;
+    
+    &--table{
+        margin: 2rem  1rem;
+        padding: 1rem;
+        background-color: $color-primary-light;
+        font-size: 2rem;
+    }
+
+    &--selected{
+        display: block;
+        margin: 2rem auto;
+        padding: 1rem;
+        background-color: $color-tertiary-light;
+    }
+}
+
+.menu{
+    text-align: center;
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+
+}
+
+.updates{
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+}
+
+.update-card{
+    background-color: $color-primary-light;
+    color: $color-black;
+    margin: 2rem auto;
+    padding: 2rem;
+    font-size: 1.5rem;
+    &--req{
+        background-color: orange;
+        color: $color-black;
+        margin: 2rem auto;
+        padding: 2rem;
+        font-size: 1.5rem;
+    }
+    &--loan{
+        background-color: yellow;
+        color: $color-black;
+        margin: 2rem auto;
+        padding: 2rem;
+        font-size: 1.5rem;
+    }
+}
+
+
+.dashboard-top{
+    margin: 4rem;
+}
+
+.user-table{
+    width: 100%;
+    font-size: 2rem;
+    border: 1px solid black;
+    th {
+        
+    }
+    td{
+        text-align: center;
+        padding: 2rem;
+    }
+}
+
+
+.requested{
+    background-color: orange;
+    color: white;
+}
+
+.loan{
+    background-color: yellow;
+    color: black;
+}
+
+.default{
+    color: black;
+}
+
+.orange-leg{
+    margin-left: 1rem;
+    width: 25px;
+    height: 25px;
+    background-color: orange;
+    display: inline-block;
+}
+
+.yellow-leg{
+    margin-left: 1rem;
+    width: 25px;
+    height: 25px;
+    background-color: yellow;
+    display: inline-block;
+
+}
+
+.leg{
+    margin-left: 0.5rem;
+    display: inline-block;
+    font-size: 1.5rem;
+    vertical-align: top;
+}

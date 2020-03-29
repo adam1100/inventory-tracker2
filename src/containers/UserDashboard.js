@@ -3,7 +3,10 @@ import UserMenu from '../components/UserMenu/UserMenu';
 import RecentUpdates from '../components/UserMenu/RecentUpdates';
 import InventoryTable from '../components/UserInventory/InventoryTable';
 
+import { AuthUserContext, withAuthorisation } from '../components/Session';
+
 class UserDashboard extends Component {
+
     state = {
         user: "dupa",
         invSelected: "",
@@ -142,7 +145,7 @@ class UserDashboard extends Component {
         this.setState({userInventories: clone})
     }
     
-    render(){
+    render(){ 
         let updates = [];
         let table = [];
         if (this.state.invSelected === "")
@@ -155,6 +158,7 @@ class UserDashboard extends Component {
         }
 
         return(
+           
             <div>
                 <div className="dashboard-top">
                     <UserMenu 
@@ -171,8 +175,12 @@ class UserDashboard extends Component {
                     {table}
                 </div>
             </div>
-        );
+      
+       ) 
+
     }
+     
 }
 
-export default UserDashboard;
+const condition = authUser => !!authUser;
+export default withAuthorisation(condition)(UserDashboard);

@@ -3,14 +3,14 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBUix8Nvi1yalzZPWoEQtkBnAhSKInsAFo",
-  authDomain: "inventory-tracker-17668.firebaseapp.com",
-  databaseURL: "https://inventory-tracker-17668.firebaseio.com",
-  projectId: "inventory-tracker-17668",
-  storageBucket: "inventory-tracker-17668.appspot.com",
-  messagingSenderId: "998596153160",
-  appId: "1:998596153160:web:5cab11fadf6c2fd124ed7d",
-  measurementId: "G-VGZXE40BKN"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
 

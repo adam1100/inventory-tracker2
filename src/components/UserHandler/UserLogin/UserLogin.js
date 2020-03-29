@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withFirebase } from '../../Firebase';
+import * as ROUTES from '../../../constants/routes';
 
 const userLogin = (props) => {
     
@@ -29,7 +31,7 @@ const INITIAL_STATE = {
 
         .then(() => {
           this.setState({ ...INITIAL_STATE });
-          window.alert("logged in")
+          this.props.history.push(ROUTES.DASHBOARD);
           
         })
         .catch(error => {
@@ -37,9 +39,11 @@ const INITIAL_STATE = {
         });
       event.preventDefault();
     };
+
     onChange = event => {
       this.setState({ [event.target.name]: event.target.value });
     };
+
     render() {
       const { email, password, error } = this.state;
       const isInvalid = password === '' || email === '';
@@ -72,6 +76,7 @@ const INITIAL_STATE = {
   }
   const SignInForm = compose(
     withFirebase,
+    withRouter,
   )(SignInFormBase);
 
   

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../../Firebase';
+import { Link, withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
 
+import * as ROUTES from '../../../constants/routes';
 
 const userRegister = (props) => {
     
@@ -24,7 +27,6 @@ const INITIAL_STATE = {
 class SignUpFormBase extends Component {
   constructor(props) {
     super(props);
-
     this.state = { ...INITIAL_STATE };
   }
 
@@ -45,7 +47,7 @@ class SignUpFormBase extends Component {
 
       .then(() => {
         this.setState({ ...INITIAL_STATE });
-
+        this.props.history.push(ROUTES.DASHBOARD);
       })
       .catch(error => {
         this.setState({ error });
@@ -117,7 +119,10 @@ class SignUpFormBase extends Component {
 
 
 
-const SignUpForm = (withFirebase(SignUpFormBase));
+const SignUpForm = compose(
+  withFirebase,
+  withRouter,
+)(SignUpFormBase)
 
 export default userRegister;
 export { SignUpForm };

@@ -8,7 +8,7 @@ const recentUpdates = (props) => {
         cl = {() => props.cl(update.inventory, update.itemid, update.type)}
         />)
     });
-    updatesList.unshift(<p className="menu-heading">Recent Updates</p>);
+    //updatesList.unshift(<p className="menu-heading">Recent Updates</p>);
     return(updatesList);
 }
 

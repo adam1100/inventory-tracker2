@@ -66,13 +66,97 @@ class UserDashboard extends Component {
                 itemDescription: '50mm lens',
                 requestedBy: 'kuznecoe@tcd.ie'
             },
-                                {
+            {
                     type: 'loan',
                     inventory: 'photography-gear',
                     itemid: '1',
                     itemDescription: 'canon',
                     requestedBy: 'kuznecoe@tcd.ie'
-                    }
+            },
+            {
+                type: 'request',
+                inventory: 'photography-gear',
+                itemid: '3',
+                itemDescription: 'tripod',
+                requestedBy: 'kuznecoe@tcd.ie'
+            },
+            {
+                type: 'request',
+                inventory: 'photography-gear',
+                itemid: '2',
+                itemDescription: '50mm lens',
+                requestedBy: 'kuznecoe@tcd.ie'
+            },
+            {
+                    type: 'loan',
+                    inventory: 'photography-gear',
+                    itemid: '1',
+                    itemDescription: 'canon',
+                    requestedBy: 'kuznecoe@tcd.ie'
+            },
+            {
+                type: 'request',
+                inventory: 'photography-gear',
+                itemid: '3',
+                itemDescription: 'tripod',
+                requestedBy: 'kuznecoe@tcd.ie'
+            },
+            {
+                type: 'request',
+                inventory: 'photography-gear',
+                itemid: '2',
+                itemDescription: '50mm lens',
+                requestedBy: 'kuznecoe@tcd.ie'
+            },
+            {
+                    type: 'loan',
+                    inventory: 'photography-gear',
+                    itemid: '1',
+                    itemDescription: 'canon',
+                    requestedBy: 'kuznecoe@tcd.ie'
+            },
+            {
+                type: 'request',
+                inventory: 'photography-gear',
+                itemid: '3',
+                itemDescription: 'tripod',
+                requestedBy: 'kuznecoe@tcd.ie'
+            },
+            {
+                type: 'request',
+                inventory: 'photography-gear',
+                itemid: '2',
+                itemDescription: '50mm lens',
+                requestedBy: 'kuznecoe@tcd.ie'
+            },
+            {
+                    type: 'loan',
+                    inventory: 'photography-gear',
+                    itemid: '1',
+                    itemDescription: 'canon',
+                    requestedBy: 'kuznecoe@tcd.ie'
+            },
+            {
+                type: 'request',
+                inventory: 'photography-gear',
+                itemid: '3',
+                itemDescription: 'tripod',
+                requestedBy: 'kuznecoe@tcd.ie'
+            },
+            {
+                type: 'request',
+                inventory: 'photography-gear',
+                itemid: '2',
+                itemDescription: '50mm lens',
+                requestedBy: 'kuznecoe@tcd.ie'
+            },
+            {
+                    type: 'loan',
+                    inventory: 'photography-gear',
+                    itemid: '1',
+                    itemDescription: 'canon',
+                    requestedBy: 'kuznecoe@tcd.ie'
+            }
         ]
     }
 
@@ -167,7 +251,10 @@ class UserDashboard extends Component {
                     selected = {this.state.invSelected}/>
             
                     <div className = "updates">
-                        {updates}
+                      <p className="menu-heading">Recent Updates</p>
+                        <div className="update-list">
+                          {updates}
+                        </div>
                     </div>
                 </div>
 

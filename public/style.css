@@ -196,6 +196,12 @@ body {
   vertical-align: top;
   text-align: center; }
 
+.update-list {
+  height: 50rem;
+  vertical-align: top;
+  text-align: center;
+  overflow-y: auto; }
+
 .update-card {
   background-color: #7ed56f;
   color: #000;

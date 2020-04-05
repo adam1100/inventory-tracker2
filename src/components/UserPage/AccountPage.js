@@ -1,13 +1,15 @@
 import React from 'react';
 import { AuthUserContext, withAuthorisation } from '../Session';
 import UserDashboard from '../../containers/UserDashboard';
+import Inventories from '../UserInventory/Inventories';
 
 const AccountPage = () => (
   <AuthUserContext.Consumer>
     {authUser => (
       <div>
         <h1>Account: {authUser.email}</h1>
-            <UserDashboard /> 
+            <UserDashboard user={authUser} /> 
+            <Inventories />
       </div>
     )}
   </AuthUserContext.Consumer>

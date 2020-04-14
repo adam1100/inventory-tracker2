@@ -8,10 +8,11 @@ const tableRow = (props) => {
     if(props.content.status === "on loan")
         statusStyle = "loan";
 
+    let properties = Object.keys(props.content).map( (key, index) => {return(<td>{props.content[key]}</td>)});
+
     return(
     <tr className={statusStyle}>
-        <td>{props.content.id}</td>
-        <td>{props.content.description}</td>
+      {properties}
     </tr>
     );
 }

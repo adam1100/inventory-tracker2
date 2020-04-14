@@ -5,6 +5,9 @@ import InventoryTable from '../components/UserInventory/InventoryTable';
 
 import { AuthUserContext, withAuthorisation } from '../components/Session';
 
+
+var newId = 1;
+
 class UserDashboard extends Component {
 
     state = {
@@ -12,21 +15,19 @@ class UserDashboard extends Component {
         invSelected: "",
         newItemID:"",
         newItemDesc:"",
+        newRow: {row_id: "new_row_id",
+                 column_entries: {},
+                 inventory_reference: "this_inventory_id",
+                 queue: [],
+                 requester: "",
+                 state: "available"
+        },
         userInventories: [
-            {id: "photography-gear",
-                contents: [
-                    {id: 1,
-                    description: "canon",
-                    status: "on loan" },
-                    {id: 2,
-                    description: "50mm lens",
-                    status: "requested" },
-                    {id: 3,
-                    description: "tripod" ,
-                    status: "requested"},
-                    {id: 4,
-                    description: "flash",
-                    status: "available" }],
+            {id: "1",
+             inventory_name: "dupa-cameras",
+             inventory_owner: "users/GpP0qBiwCwUqxwpZ5DXnK5f8n542",
+             fields:["description", "location", "quantity"],
+             rows: ["w7Rkzrnh4a4couXz58LT", "fGAKX0u6wmoMNv0X8q5a"],
                 updates: [
                     {
                     type: 'request',
@@ -50,6 +51,24 @@ class UserDashboard extends Component {
                     requestedBy: 'kuznecoe@tcd.ie'
                     }]
             }
+        ],
+        row: [
+          {row_id: "w7Rkzrnh4a4couXz58LT",
+           column_entries: {description: "nikon",
+                            location: "atrium safe"},
+           inventory_reference: "dupa-cameras",
+           queue: ["abc@tcd.ie"],
+           requester: "kuznecoe@tcd.ie",
+           state: "onLoan"
+          },
+          {row_id: "fGAKX0u6wmoMNv0X8q5a",
+           column_entries: {description: "canon 50",
+                            location: "atrium safe"},
+           inventory_reference: "dupa-cameras",
+           queue: [],
+           requester: "",
+           state: "available"
+          }
         ],
         recentUpdates: [
             {
@@ -163,26 +182,28 @@ class UserDashboard extends Component {
     clickedMenuButton(inventory) {
         this.setState({invSelected: inventory});
     }
-
+    
     clickedAddHandler(){
-        
-
         let clone = [...this.state.userInventories]
         let inventory = clone.find( inventory => inventory.id === this.state.invSelected);
-        inventory.contents.push({id: this.state.newItemID, description: this.state.newItemDesc, status: "available"});
+        let rowClone = JSON.parse(JSON.stringify(this.state.row));
+        let newRowClone = JSON.parse(JSON.stringify(this.state.newRow));
+        newRowClone.row_id = newId++;
+        
+        inventory.rows.push(newRowClone.row_id);
+        rowClone.push(newRowClone);
+        this.setState({row: rowClone});
         this.setState({userInventories: clone});
     }
 
-    onChangeID(event){
-        const input = event.target.value;
-        console.log(input)
-        this.setState({newItemID: input});
+    onChangeInput(event){
+      const field = event.target.name;
+      const input = event.target.value;
+      let newRowClone = JSON.parse(JSON.stringify(this.state.newRow));
+      newRowClone.column_entries[field] = input
+      this.setState({newRow: newRowClone});
     }
 
-    onChangeDesc(event){
-        this.setState({newItemDesc: event.target.value});
-    }
-    
     getUpdates(inventoryObject){
         const currentUpdates = <RecentUpdates updates = {inventoryObject.updates} 
         cl = {(inv, itemid, status) => this.clickedCardHandler(inv, itemid, status)}/>
@@ -190,10 +211,12 @@ class UserDashboard extends Component {
     }
 
     getTable(inventoryObject){
-        const table = <InventoryTable tableData = {inventoryObject}
-                                        changeID = {(event) => this.onChangeID(event)}
-                                        changeDesc = {(event) => this.onChangeDesc(event)}
-                                        add = {() => this.clickedAddHandler()}/>
+        let row_ids = inventoryObject.rows;
+        let tableRows = this.state.row.filter( row => row_ids.includes(row.row_id) )
+        const table = <InventoryTable tableFields = {inventoryObject.fields}
+                                      tableRows = {tableRows}
+                                      changeInput = {(event) => this.onChangeInput(event)}
+                                      add = {() => this.clickedAddHandler()}/>
         return table;
     }
 

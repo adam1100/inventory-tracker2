@@ -31,10 +31,11 @@ class UserDashboard extends Component {
         userInventories: [],
         currentLoadedInventory: "",
         currentInventoryRows: [] ,
-        
-        newRow: {row_id: "new_row_id",
+        currentInventoryFields: [],
+
+        newRow: {row_id: "",
             column_entries: {},
-            inventory_reference: "this_inventory_id",
+            inventory_reference: "",
             queue: [],
             requester: "",
             state: "available"
@@ -136,7 +137,11 @@ class UserDashboard extends Component {
                 } else {
                     let rowRefs = doc.data().rows;
                     const rowPromises = [];
-                
+
+                    let rowFields = doc.data().fields;
+                    this.setState({currentInventoryFields: rowFields});
+                   
+
                     rowRefs.forEach(row => {
                         rowPromises.push(db.collection('row').doc(row.id).get()) 
                     });
@@ -157,6 +162,7 @@ class UserDashboard extends Component {
                             });
                             
                             this.setState({currentLoadedInventory: inventoryToLoad, currentInventoryRows: rows});
+                            console.log('current rows', this.state.currentInventoryRows);
                         });     
                 }
             });
@@ -166,14 +172,14 @@ class UserDashboard extends Component {
         this.setState({ invSelected: inventory });
     }
 
-    clickedAddHandler() {
+    // clickedAddHandler() {
 
 
-        let clone = [...this.state.userInventories]
-        let inventory = clone.find(inventory => inventory.id === this.state.invSelected);
-        inventory.contents.push({ id: this.state.newItemID, description: this.state.newItemDesc, status: "available" });
-        this.setState({ userInventories: clone });
-    }
+    //     let clone = [...this.state.userInventories]
+    //     let inventory = clone.find(inventory => inventory.id === this.state.invSelected);
+    //     inventory.contents.push({ id: this.state.newItemID, description: this.state.newItemDesc, status: "available" });
+    //     this.setState({ userInventories: clone });
+    // }
 
     onChangeID(event) {
         const input = event.target.value;
@@ -192,7 +198,7 @@ class UserDashboard extends Component {
             />
         return currentUpdates;
     }
-
+/*
     getTable() {
         console.log('current rows', this.state.currentInventoryRows);
         const table = <InventoryTable 
@@ -202,25 +208,33 @@ class UserDashboard extends Component {
             //add={() => this.clickedAddHandler()} 
             />
 
-    }
+    }*/
  
     ///////////
 /*
     clickedMenuButton(inventory) {
         this.setState({invSelected: inventory});        //use this func to add inventory to db/homepage
     }
-
+*/
     clickedAddHandler(){
-        let clone = [...this.state.userInventories]
-        let inventory = clone.find( inventory => inventory.id === this.state.invSelected);
-        this.setState({userInventories: clone});
-        let rowClone = JSON.parse(JSON.stringify(this.state.row));
+     //   let clone = [...this.state.userInventories]
+     //   let inventory = clone.find( inventory => inventory === this.state.invSelected);
+     //   this.setState({userInventories: clone});
+        let rowClone = JSON.parse(JSON.stringify(this.state.currentInventoryRows));
         let newRowClone = JSON.parse(JSON.stringify(this.state.newRow));
         newRowClone.row_id = newId++;
 
-        inventory.rows.push(newRowClone.row_id);
+        //inventory.rows.push(newRowClone.row_id);
         rowClone.push(newRowClone);
-        this.setState({row: rowClone});
+        const db = firebase.firestore();
+        let addDoc = db.collection('row').add(
+            newRowClone
+          ).then(ref => {
+            console.log('Added document with ID: ', ref.id);
+          });
+
+
+        this.setState({currentInventoryRows: rowClone});
     }
 
     onChangeInput(event){
@@ -229,25 +243,31 @@ class UserDashboard extends Component {
         let newRowClone = JSON.parse(JSON.stringify(this.state.newRow));
         newRowClone.column_entries[field] = input
         this.setState({newRow: newRowClone});
+
     }
 
 
-    
+    /*
     getUpdates(inventoryObject){
         const currentUpdates = <RecentUpdates updates = {inventoryObject.updates} 
         cl = {(inv, itemid, status) => this.clickedCardHandler(inv, itemid, status)}/>
         return currentUpdates;
     }
 
-    getTable(inventoryObject){
-        let row_ids = inventoryObject.rows;
-        let tableRows = this.state.row.filter( row => row_ids.includes(row.row_id) )
-        const table = <InventoryTable tableFields = {inventoryObject.fields}
-                                      tableRows = {tableRows}
+
+*/
+
+    getTable(){
+
+        console.log('current rows', this.state.currentInventoryRows);
+     //   let row_ids = inventoryObject.rows;
+     //   let tableRows = this.state.row.filter( row => row_ids.includes(row.row_id) )
+        const table = <InventoryTable tableFields = {this.state.currentInventoryFields}
+                                      tableRows = {this.state.currentInventoryRows}
                                       changeInput = {(event) => this.onChangeInput(event)}
                                       add = {() => this.clickedAddHandler()}/>
         return table;
-    }*/
+    }
 
     clickedCardHandler(inv, itemid, status) {
         let clone = [...this.state.userInventories];
@@ -293,10 +313,10 @@ class UserDashboard extends Component {
         // }//Add
         // //table = <invalid  //change table to my component which is imported from inv_add
 
-        // else{
-        //     //updates = this.getUpdates(inventoryToShow);
-        //     table = this.getTable();
-        // }
+        else{
+            //updates = this.getUpdates(inventoryToShow);
+            table = this.getTable();
+        }
      
 
         return (

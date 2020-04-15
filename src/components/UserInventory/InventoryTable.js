@@ -3,10 +3,13 @@ import TableRow from './TableRow'
 
 const inventoryTable = (props) => {
 
-    const fields = props.tableFields
+    const fields = props.tableFields 
+    console.log("FIelds", fields);
     const tableHeadings = fields.map( field => {
         return <th>{field}</th>
     });
+   
+    console.log('ROWS', props.tableRows)
     const inputForms = fields.map( field => {
         return  <div className="pair--table">
             <p>{field}</p><input name = {field} onChange={props.changeInput}/>

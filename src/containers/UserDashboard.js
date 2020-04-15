@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import UserMenu from '../components/UserMenu/UserMenu';
 import RecentUpdates from '../components/UserMenu/RecentUpdates';
 import InventoryTable from '../components/UserInventory/InventoryTable';
+//import inventory_add from  '../components';
 
 import { AuthUserContext, withAuthorisation } from '../components/Session';
-
 
 var newId = 1;
 
@@ -16,18 +16,18 @@ class UserDashboard extends Component {
         newItemID:"",
         newItemDesc:"",
         newRow: {row_id: "new_row_id",
-                 column_entries: {},
-                 inventory_reference: "this_inventory_id",
-                 queue: [],
-                 requester: "",
-                 state: "available"
+            column_entries: {},
+            inventory_reference: "this_inventory_id",
+            queue: [],
+            requester: "",
+            state: "available"
         },
         userInventories: [
             {id: "1",
-             inventory_name: "dupa-cameras",
-             inventory_owner: "users/GpP0qBiwCwUqxwpZ5DXnK5f8n542",
-             fields:["description", "location", "quantity"],
-             rows: ["w7Rkzrnh4a4couXz58LT", "fGAKX0u6wmoMNv0X8q5a"],
+                inventory_name: "dupa-cameras",
+                inventory_owner: "users/GpP0qBiwCwUqxwpZ5DXnK5f8n542",
+                fields:["description", "location", "quantity"],
+                rows: ["w7Rkzrnh4a4couXz58LT", "fGAKX0u6wmoMNv0X8q5a"],
                 updates: [
                     {
                     type: 'request',
@@ -53,22 +53,21 @@ class UserDashboard extends Component {
             }
         ],
         row: [
-          {row_id: "w7Rkzrnh4a4couXz58LT",
-           column_entries: {description: "nikon",
-                            location: "atrium safe"},
-           inventory_reference: "dupa-cameras",
-           queue: ["abc@tcd.ie"],
-           requester: "kuznecoe@tcd.ie",
-           state: "onLoan"
-          },
-          {row_id: "fGAKX0u6wmoMNv0X8q5a",
-           column_entries: {description: "canon 50",
-                            location: "atrium safe"},
-           inventory_reference: "dupa-cameras",
-           queue: [],
-           requester: "",
-           state: "requested"
-          }
+            {row_id: "w7Rkzrnh4a4couXz58LT",
+                column_entries: {description: "nikon",
+                    location: "atrium safe"},
+                inventory_reference: "dupa-cameras",
+                queue: ["abc@tcd.ie"],
+                requester: "kuznecoe@tcd.ie",
+                state: "onLoan"
+            },
+            {row_id: "fGAKX0u6wmoMNv0X8q5a",
+                column_entries: {description: "canon 50",
+                    location: "atrium safe"},
+                inventory_reference: "dupa-cameras",
+                queue: [],
+                requester: "",
+                state: "requested"            }
         ],
         recentUpdates: [
             {
@@ -180,30 +179,32 @@ class UserDashboard extends Component {
     }
 
     clickedMenuButton(inventory) {
-        this.setState({invSelected: inventory});
+        this.setState({invSelected: inventory});        //use this func to add inventory to db/homepage
     }
-    
+
     clickedAddHandler(){
         let clone = [...this.state.userInventories]
         let inventory = clone.find( inventory => inventory.id === this.state.invSelected);
+        this.setState({userInventories: clone});
         let rowClone = JSON.parse(JSON.stringify(this.state.row));
         let newRowClone = JSON.parse(JSON.stringify(this.state.newRow));
         newRowClone.row_id = newId++;
-        
+
         inventory.rows.push(newRowClone.row_id);
         rowClone.push(newRowClone);
         this.setState({row: rowClone});
-        this.setState({userInventories: clone});
     }
 
     onChangeInput(event){
-      const field = event.target.name;
-      const input = event.target.value;
-      let newRowClone = JSON.parse(JSON.stringify(this.state.newRow));
-      newRowClone.column_entries[field] = input
-      this.setState({newRow: newRowClone});
+        const field = event.target.name;
+        const input = event.target.value;
+        let newRowClone = JSON.parse(JSON.stringify(this.state.newRow));
+        newRowClone.column_entries[field] = input
+        this.setState({newRow: newRowClone});
     }
 
+
+    
     getUpdates(inventoryObject){
         const currentUpdates = <RecentUpdates updates = {inventoryObject.updates} 
         cl = {(inv, itemid, status) => this.clickedCardHandler(inv, itemid, status)}/>
@@ -258,6 +259,12 @@ class UserDashboard extends Component {
         if (this.state.invSelected === "")
             updates = <RecentUpdates updates = {this.state.recentUpdates} 
             cl = {(inv, itemid, status) => this.clickedCardHandler(inv, itemid, status)}/>
+
+        else if(this.state.invSelected == 'inventory_add') {
+
+        }//Add
+        //table = <invalid  //change table to my component which is imported from inv_add
+
         else{
             const inventoryToShow = this.state.userInventories.find( inventory => inventory.id === this.state.invSelected);
             updates = this.getUpdates(inventoryToShow);

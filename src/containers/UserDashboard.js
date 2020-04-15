@@ -67,7 +67,7 @@ class UserDashboard extends Component {
            inventory_reference: "dupa-cameras",
            queue: [],
            requester: "",
-           state: "available"
+           state: "requested"
           }
         ],
         recentUpdates: [

@@ -13,7 +13,9 @@ const inventoryTable = (props) => {
               </div>
     });
     const tableContents = props.tableRows.map(row => {
-        return <TableRow content = {row.column_entries}/>
+        return <TableRow fields = {fields}
+                         content = {row.column_entries}
+                         state = {row.state}/>
     });
     
     return(

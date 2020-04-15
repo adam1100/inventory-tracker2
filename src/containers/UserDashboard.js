@@ -5,10 +5,13 @@ import RecentUpdates from '../components/UserMenu/RecentUpdates';
 
 
 import InventoryTable from '../components/UserInventory/InventoryTable';
+//import inventory_add from  '../components';
 
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { AuthUserContext, withAuthorisation } from '../components/Session';
+
+var newId = 1;
 
 class UserDashboard extends Component {
     
@@ -27,8 +30,15 @@ class UserDashboard extends Component {
 
         userInventories: [],
         currentLoadedInventory: "",
-        currentInventoryRows: []
-                
+        currentInventoryRows: [] ,
+        
+        newRow: {row_id: "new_row_id",
+            column_entries: {},
+            inventory_reference: "this_inventory_id",
+            queue: [],
+            requester: "",
+            state: "available"
+    }
     }
 
     componentDidMount() {
@@ -191,8 +201,53 @@ class UserDashboard extends Component {
             //changeDesc={(event) => this.onChangeDesc(event)}
             //add={() => this.clickedAddHandler()} 
             />
-        return table;
+
     }
+ 
+    ///////////
+/*
+    clickedMenuButton(inventory) {
+        this.setState({invSelected: inventory});        //use this func to add inventory to db/homepage
+    }
+
+    clickedAddHandler(){
+        let clone = [...this.state.userInventories]
+        let inventory = clone.find( inventory => inventory.id === this.state.invSelected);
+        this.setState({userInventories: clone});
+        let rowClone = JSON.parse(JSON.stringify(this.state.row));
+        let newRowClone = JSON.parse(JSON.stringify(this.state.newRow));
+        newRowClone.row_id = newId++;
+
+        inventory.rows.push(newRowClone.row_id);
+        rowClone.push(newRowClone);
+        this.setState({row: rowClone});
+    }
+
+    onChangeInput(event){
+        const field = event.target.name;
+        const input = event.target.value;
+        let newRowClone = JSON.parse(JSON.stringify(this.state.newRow));
+        newRowClone.column_entries[field] = input
+        this.setState({newRow: newRowClone});
+    }
+
+
+    
+    getUpdates(inventoryObject){
+        const currentUpdates = <RecentUpdates updates = {inventoryObject.updates} 
+        cl = {(inv, itemid, status) => this.clickedCardHandler(inv, itemid, status)}/>
+        return currentUpdates;
+    }
+
+    getTable(inventoryObject){
+        let row_ids = inventoryObject.rows;
+        let tableRows = this.state.row.filter( row => row_ids.includes(row.row_id) )
+        const table = <InventoryTable tableFields = {inventoryObject.fields}
+                                      tableRows = {tableRows}
+                                      changeInput = {(event) => this.onChangeInput(event)}
+                                      add = {() => this.clickedAddHandler()}/>
+        return table;
+    }*/
 
     clickedCardHandler(inv, itemid, status) {
         let clone = [...this.state.userInventories];
@@ -229,10 +284,19 @@ class UserDashboard extends Component {
             updates = <RecentUpdates updates = {this.state.updates} 
             //cl = {(inv, itemid, status) => this.clickedCardHandler(inv, itemid, status)}
             />
-        else{
-            //updates = this.getUpdates(inventoryToShow);
-            table = this.getTable();
-        }
+        // if (this.state.invSelected === "")
+        //     updates = <RecentUpdates updates = {this.state.recentUpdates} 
+        //     cl = {(inv, itemid, status) => this.clickedCardHandler(inv, itemid, status)}/>
+
+        // else if(this.state.invSelected == 'inventory_add') {
+
+        // }//Add
+        // //table = <invalid  //change table to my component which is imported from inv_add
+
+        // else{
+        //     //updates = this.getUpdates(inventoryToShow);
+        //     table = this.getTable();
+        // }
      
 
         return (

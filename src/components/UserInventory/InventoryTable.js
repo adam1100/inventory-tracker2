@@ -2,15 +2,20 @@ import React from 'react';
 import TableRow from './TableRow'
 
 const inventoryTable = (props) => {
-    console.log('props', this.props.tableData)
-    const tableContents = props.tableData.contents.map(content => {
-        return <TableRow 
-                content={ content }
-                //formHandler = {() => props.formHandler(content.id)}
-                //formChanged = {props.formChanged}
-                //formInput = {props.formInput}
-                //key = {content.id} 
-                />
+
+    const fields = props.tableFields
+    const tableHeadings = fields.map( field => {
+        return <th>{field}</th>
+    });
+    const inputForms = fields.map( field => {
+        return  <div className="pair--table">
+            <p>{field}</p><input name = {field} onChange={props.changeInput}/>
+        </div>
+    });
+    const tableContents = props.tableRows.map(row => {
+        return <TableRow fields = {fields}
+                         content = {row.column_entries}
+                         state = {row.state}/>
     });
     
     return(
@@ -22,22 +27,14 @@ const inventoryTable = (props) => {
     <p>table</p>
      <table className="user-table">
         <thead>
-        <tr>
-            <th>Item ID</th>
-            <th>Description</th>
-        </tr>
+        {tableHeadings}
         </thead>
         <tbody>
             {tableContents}
         </tbody>
     </table>
-    <div className="pair--table">
-        <p>Item ID</p><input onChange={props.changeID}/>
-    </div>
-    <div className="pair--table">
-        <p>Description</p><input onChange={props.changeDesc}/>
-    </div>
-    <button onClick={props.add}className="menu-btn--table">Add Item</button> 
+        {inputForms}
+        <button onClick={props.add}className="menu-btn--table">Add Item</button>
 
     </div>
     );

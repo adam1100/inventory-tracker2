@@ -9,7 +9,7 @@ const AccountPage = () => (
       <div>
         <h1>Account: {authUser.email}</h1>
             <UserDashboard user={authUser} /> 
-            <Inventories />
+            {/* <Inventories user={authUser} /> */}
       </div>
     )}
   </AuthUserContext.Consumer>

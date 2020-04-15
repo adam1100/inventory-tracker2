@@ -21,6 +21,7 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  uid: '',
 
 };
 
@@ -40,6 +41,7 @@ class SignUpFormBase extends Component {
           {
             username,
             email,
+            uid: authUser.user.uid,
           },
           { merge: true },
         );

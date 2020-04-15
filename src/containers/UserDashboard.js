@@ -1,214 +1,211 @@
 import React, { Component } from 'react';
 import UserMenu from '../components/UserMenu/UserMenu';
 import RecentUpdates from '../components/UserMenu/RecentUpdates';
+
+
+
 import InventoryTable from '../components/UserInventory/InventoryTable';
 
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 import { AuthUserContext, withAuthorisation } from '../components/Session';
 
 class UserDashboard extends Component {
-
+    
     state = {
-        user: "dupa",
+        user: "",
+
+        newItemID: "",
+        newItemDesc: "",
+
+        
         invSelected: "",
-        newItemID:"",
-        newItemDesc:"",
-        userInventories: [
-            {id: "photography-gear",
-                contents: [
-                    {id: 1,
-                    description: "canon",
-                    status: "on loan" },
-                    {id: 2,
-                    description: "50mm lens",
-                    status: "requested" },
-                    {id: 3,
-                    description: "tripod" ,
-                    status: "requested"},
-                    {id: 4,
-                    description: "flash",
-                    status: "available" }],
-                updates: [
-                    {
-                    type: 'request',
-                    inventory: 'photography-gear',
-                    itemid: '3',
-                    itemDescription: 'tripod',
-                    requestedBy: 'kuznecoe@tcd.ie'
-                    },
-                    {
-                    type: 'request',
-                    inventory: 'photography-gear',
-                    itemid: '2',
-                    itemDescription: '50mm lens',
-                    requestedBy: 'kuznecoe@tcd.ie'
-                    },
-                    {
-                    type: 'loan',
-                    inventory: 'photography-gear',
-                    itemid: '1',
-                    itemDescription: 'canon',
-                    requestedBy: 'kuznecoe@tcd.ie'
-                    }]
-            }
-        ],
-        recentUpdates: [
-            {
-                type: 'request',
-                inventory: 'photography-gear',
-                itemid: '3',
-                itemDescription: 'tripod',
-                requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                type: 'request',
-                inventory: 'photography-gear',
-                itemid: '2',
-                itemDescription: '50mm lens',
-                requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                    type: 'loan',
-                    inventory: 'photography-gear',
-                    itemid: '1',
-                    itemDescription: 'canon',
-                    requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                type: 'request',
-                inventory: 'photography-gear',
-                itemid: '3',
-                itemDescription: 'tripod',
-                requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                type: 'request',
-                inventory: 'photography-gear',
-                itemid: '2',
-                itemDescription: '50mm lens',
-                requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                    type: 'loan',
-                    inventory: 'photography-gear',
-                    itemid: '1',
-                    itemDescription: 'canon',
-                    requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                type: 'request',
-                inventory: 'photography-gear',
-                itemid: '3',
-                itemDescription: 'tripod',
-                requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                type: 'request',
-                inventory: 'photography-gear',
-                itemid: '2',
-                itemDescription: '50mm lens',
-                requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                    type: 'loan',
-                    inventory: 'photography-gear',
-                    itemid: '1',
-                    itemDescription: 'canon',
-                    requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                type: 'request',
-                inventory: 'photography-gear',
-                itemid: '3',
-                itemDescription: 'tripod',
-                requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                type: 'request',
-                inventory: 'photography-gear',
-                itemid: '2',
-                itemDescription: '50mm lens',
-                requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                    type: 'loan',
-                    inventory: 'photography-gear',
-                    itemid: '1',
-                    itemDescription: 'canon',
-                    requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                type: 'request',
-                inventory: 'photography-gear',
-                itemid: '3',
-                itemDescription: 'tripod',
-                requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                type: 'request',
-                inventory: 'photography-gear',
-                itemid: '2',
-                itemDescription: '50mm lens',
-                requestedBy: 'kuznecoe@tcd.ie'
-            },
-            {
-                    type: 'loan',
-                    inventory: 'photography-gear',
-                    itemid: '1',
-                    itemDescription: 'canon',
-                    requestedBy: 'kuznecoe@tcd.ie'
-            }
-        ]
+
+        updatesLoaded: "none",
+        updateRefs: [],
+        updates: [],
+
+        userInventories: [],
+        currentLoadedInventory: "",
+        currentInventoryRows: []
+                
+    }
+
+    componentDidMount() {
+        this.getUserDataAndUpdateRefs();
+    }
+    
+    
+    componentDidUpdate() {
+
+        if(this.state.currentLoadedInventory !== this.state.invSelected && "" !== this.state.invSelected){
+            this.loadCurrentInventory()
+        }
+
+        if(this.state.updatesLoaded === "none" && this.state.updateRefs.length > 0){
+            this.loadUpdatesFromRefs()
+        }
+    }
+
+    loadUpdatesFromRefs(){
+
+        const db = firebase.firestore();
+        const updatePromises = [];
+        const updates = [];
+        const updateRefs = this.state.updateRefs;
+        updateRefs.forEach(ref => updatePromises.push(db.collection('row').doc(ref).get()));
+
+        Promise.all(updatePromises)
+                        .then((values) =>{
+                            values.forEach(value => {
+                                var seconds = value.data().changed.seconds;
+                                var d = new Date(0);
+                                d.setUTCSeconds(seconds);
+                                updates.push({
+                                    inventory: value.data().inventory_reference.id,
+                                    changed: d,
+                                    item: value.data().column_entries.description,
+                                    requester: value.data().requester,
+                                    state: value.data().state
+                                }); 
+                            });
+                            this.setState({updates: updates, updatesLoaded: ""});
+                        });
+ 
+    }
+
+    getUserDataAndUpdateRefs = () => {
+        const db = firebase.firestore();
+        db.settings({
+            timestampsInSnapshots: true
+        });
+
+        let userRef = db.collection('users').doc(firebase.auth().currentUser.uid);
+        
+        userRef.get()
+            .then(doc => {
+                if (!doc.exists) {
+                    console.log('No such document!');
+                } else {
+                    var data = doc.data();
+                    let inventoryNames = [];
+                    let recentUpdates = [];
+                    data.inventories.forEach(inventory => {
+                        inventoryNames.push(inventory.id);
+                    })
+                    data.updates.forEach(update => {
+                        recentUpdates.push(update.id);
+                    })
+                    this.setState({ updateRefs: recentUpdates, userInventories: inventoryNames  })
+                }
+            })
+            .catch(err => {
+                console.log('Error getting document', err);
+            });
+
+    }
+    
+
+    // const promises = [usersPromise, posts]
+    //     Promise.all(promises)
+    //         .then((values) => {
+    //             res.render('home', 
+    //             {username: username, 
+    //             posts: values[1].posts, 
+    //             users: values[0], 
+    //             group: values[1].group})
+    //         });
+
+    loadCurrentInventory = () => {
+        const inventoryToLoad = this.state.invSelected;
+        const db = firebase.firestore();
+        db.collection('inventories').doc(inventoryToLoad).get()
+            .then(doc => {
+                 if (!doc.exists) {
+                    console.log('No such document!');
+                } else {
+                    let rowRefs = doc.data().rows;
+                    const rowPromises = [];
+                
+                    rowRefs.forEach(row => {
+                        rowPromises.push(db.collection('row').doc(row.id).get()) 
+                    });
+
+                    Promise.all(rowPromises)
+                        .then((values) =>{
+                            let rows = [];
+                            values.forEach(value => {
+                                if (!value.exits){
+                                    console.log("doc doesnt exist")
+                                }
+                                let data = value.data()
+                                rows.push({changed: data.changed,
+                                column_entries: data.column_entries,
+                                queue: data.queue,
+                                requester: data.requester,
+                                state: data.state})
+                            });
+                            
+                            this.setState({currentLoadedInventory: inventoryToLoad, currentInventoryRows: rows});
+                        });     
+                }
+            });
     }
 
     clickedMenuButton(inventory) {
-        this.setState({invSelected: inventory});
+        this.setState({ invSelected: inventory });
     }
 
-    clickedAddHandler(){
-        
+    clickedAddHandler() {
+
 
         let clone = [...this.state.userInventories]
-        let inventory = clone.find( inventory => inventory.id === this.state.invSelected);
-        inventory.contents.push({id: this.state.newItemID, description: this.state.newItemDesc, status: "available"});
-        this.setState({userInventories: clone});
+        let inventory = clone.find(inventory => inventory.id === this.state.invSelected);
+        inventory.contents.push({ id: this.state.newItemID, description: this.state.newItemDesc, status: "available" });
+        this.setState({ userInventories: clone });
     }
 
-    onChangeID(event){
+    onChangeID(event) {
         const input = event.target.value;
         console.log(input)
-        this.setState({newItemID: input});
+        this.setState({ newItemID: input });
     }
 
-    onChangeDesc(event){
-        this.setState({newItemDesc: event.target.value});
+    onChangeDesc(event) {
+        this.setState({ newItemDesc: event.target.value });
     }
-    
-    getUpdates(inventoryObject){
-        const currentUpdates = <RecentUpdates updates = {inventoryObject.updates} 
-        cl = {(inv, itemid, status) => this.clickedCardHandler(inv, itemid, status)}/>
+
+    getUpdates(inventoryObject) {
+        const currentUpdates = <RecentUpdates 
+        updates={inventoryObject.updates}
+            //cl={(inv, itemid, status) => this.clickedCardHandler(inv, itemid, status)} 
+            />
         return currentUpdates;
     }
 
-    getTable(inventoryObject){
-        const table = <InventoryTable tableData = {inventoryObject}
-                                        changeID = {(event) => this.onChangeID(event)}
-                                        changeDesc = {(event) => this.onChangeDesc(event)}
-                                        add = {() => this.clickedAddHandler()}/>
+    getTable() {
+        console.log('current rows', this.state.currentInventoryRows);
+        const table = <InventoryTable 
+          //  tableData={this.state.currentInventoryRows}
+            //changeID={(event) => this.onChangeID(event)}
+            //changeDesc={(event) => this.onChangeDesc(event)}
+            //add={() => this.clickedAddHandler()} 
+            />
         return table;
     }
 
-    clickedCardHandler(inv, itemid, status){
+    clickedCardHandler(inv, itemid, status) {
         let clone = [...this.state.userInventories];
-        let inventory = clone.find( inventory => inventory.id === inv);
-        let update = inventory.updates.find( update => update.itemid === itemid);
-        let oldIndex = inventory.updates.findIndex( update => update.itemid === itemid);
+        let inventory = clone.find(inventory => inventory.id === inv);
+        let update = inventory.updates.find(update => update.itemid === itemid);
+        let oldIndex = inventory.updates.findIndex(update => update.itemid === itemid);
         inventory.updates.splice(oldIndex, 1);
 
         let newUpdate;
 
         let item = inventory.contents.find(item => item.id === parseInt(itemid));
 
-        if(status == "request"){
+        if (status === "request") {
             newUpdate = {
                 type: 'loan',
                 inventory: update.inventory,
@@ -217,43 +214,45 @@ class UserDashboard extends Component {
                 requestedBy: update.requestedBy
             };
             inventory.updates.unshift(newUpdate);
-            console.log(inventory.contents)
-            console.log(item);
             item.status = "on loan";
-        }else{
+        } else {
             item.status = "available"
         }
-
-        console.log(clone)
-        console.log(this.state.userInventories)
-        this.setState({userInventories: clone})
+        this.setState({ userInventories: clone })
     }
-    
-    render(){ 
+
+    render() {
+
         let updates = [];
         let table = [];
-        if (this.state.invSelected === "")
-            updates = <RecentUpdates updates = {this.state.recentUpdates} 
-            cl = {(inv, itemid, status) => this.clickedCardHandler(inv, itemid, status)}/>
+        if (this.state.currentLoadedInventory === "")
+            updates = <RecentUpdates updates = {this.state.updates} 
+            //cl = {(inv, itemid, status) => this.clickedCardHandler(inv, itemid, status)}
+            />
         else{
-            const inventoryToShow = this.state.userInventories.find( inventory => inventory.id === this.state.invSelected);
-            updates = this.getUpdates(inventoryToShow);
-            table = this.getTable(inventoryToShow);
+            //updates = this.getUpdates(inventoryToShow);
+            table = this.getTable();
         }
+     
 
-        return(
-           
+        return (
+
             <div>
                 <div className="dashboard-top">
-                    <UserMenu 
-                    inventories={this.state.userInventories}
+                    {    <UserMenu 
+
+
+                    inventories={this.state.userInventories} //changed inventories to userInventories
+
+
+
                     clicked={(inventory) => this.clickedMenuButton(inventory)}
-                    selected = {this.state.invSelected}/>
-            
-                    <div className = "updates">
-                      <p className="menu-heading">Recent Updates</p>
+                    selected = {this.state.invSelected}/> }
+
+                    <div className="updates">
+                        <p className="menu-heading">Recent Updates</p>
                         <div className="update-list">
-                          {updates}
+                            {updates}
                         </div>
                     </div>
                 </div>
@@ -262,11 +261,11 @@ class UserDashboard extends Component {
                     {table}
                 </div>
             </div>
-      
-       ) 
+
+        )
 
     }
-     
+
 }
 
 const condition = authUser => !!authUser;

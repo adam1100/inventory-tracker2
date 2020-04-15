@@ -9,6 +9,11 @@ const tableRow = (props) => {
         statusStyle = "loan";
 
     return(
+
+
+
+
+
     <tr className={statusStyle}>
         <td>{props.content.id}</td>
         <td>{props.content.description}</td>

@@ -32,6 +32,7 @@ class Firebase {
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
 
+
   user = uid => this.db.doc(`users/${uid}`);
 
   users = () => this.db.collection('users');

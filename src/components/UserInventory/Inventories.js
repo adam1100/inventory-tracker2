@@ -3,6 +3,16 @@ import { withFirebase } from '../Firebase';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { AuthUserContext, withAuthorisation } from '../Session';
+// import ReactHover from 'react-hover'
+
+/*
+  const optionsCursorTrueWithMargin = {
+    followCursor: true,
+    shiftX: 30,
+    shiftY: 0
+
+  }
+*/
 
 class Inventories extends Component {
   constructor(props) {
@@ -19,7 +29,7 @@ class Inventories extends Component {
 
   componentDidMount() {
     this.getData();
- 
+
   }
 
 
@@ -53,8 +63,8 @@ class Inventories extends Component {
       .catch(err => {
         console.log('Error getting document', err);
       })
-      
-      
+
+
 
      /*  let invRef = db.collection('inventories').doc(inventoryRef);
       let query = invRef.get()
@@ -68,7 +78,7 @@ class Inventories extends Component {
         }
       }) */
       ;
-      
+
 
     /*         const docRef = db.collection('inventories').doc('YkOKYwrLuvQBFF9jGJ5K');
             db.collection('inventories').get()
@@ -97,10 +107,10 @@ class Inventories extends Component {
         if (!doc.exists) {
           console.log('No such document!');
         } else {
-          
+
           wholeData.push(doc.data())
           console.log('Document data:', doc.data());
-    
+
 
         }
       })
@@ -120,6 +130,18 @@ class Inventories extends Component {
       <h1>{this.state.authUser.email}</h1>
 
     )
+/*    return (
+        <div className="App">
+           <ReactHover options={optionsCursorTrueWithMargin}>
+             <ReactHover.Trigger type='trigger'>
+                <TriggerTest/>
+             </ReactHover.Trigger>
+             <ReactHover.Hover type='hover'>
+                <HoverTest />
+             </ReactHover.Hover>
+           </ReactHover>
+        </div>
+      )  */
   }
 }
 
